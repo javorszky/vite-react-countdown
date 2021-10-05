@@ -1,5 +1,6 @@
 body {
   font-family: 'Montserrat', sans-serif;
+  filter: blur(0.08vh);
 }
 
 p.final-countdown {
@@ -7,7 +8,6 @@ p.final-countdown {
   line-height: 0.75;
   margin: 0;
   padding: 10vh 0 0 10vh;
-
 }
 
 .cdSecondColon::before {
