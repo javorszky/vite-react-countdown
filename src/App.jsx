@@ -1,12 +1,21 @@
 import { useState } from 'react'
+import {
+  useParams
+} from "react-router-dom";
 import './App.css'
 
 import NoCount from './NoCount';
 import Count from './Count';
 
 function App() {
-  const minutes = 10;
   const [counting, setCounting] = useState(false)
+
+  let { mins } = useParams();
+
+  let minutes = Number.parseInt(mins)
+  if (Number.isNaN(minutes)) {
+    minutes = 10;
+  }
 
   return (
     <>
