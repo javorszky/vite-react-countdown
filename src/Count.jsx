@@ -26,17 +26,19 @@ function Count(props) {
   }
 
   const Counter = () => {
-    const [countdown, setCountdown] = useState("10:00:00")
+    const [cdMinute, setCdMinute] = useState('10')
+    const [cdSecond, setCdSecond] = useState('00')
+    const [cdMs, setCdMs] = useState('00')
 
     useAnimationFrame(() => {
-      const remaining = moment.duration(tenMinutesFromNow.diff(moment()))
-      setCountdown(moment.utc(
-        remaining.asMilliseconds()
-      ).format("mm:ss:SS")
-      )
+      const remaining = moment.utc(moment.duration(tenMinutesFromNow.diff(moment())).asMilliseconds())
+
+      setCdMinute(String(remaining.minutes()).padStart(2, 0))
+      setCdSecond(String(remaining.seconds()).padStart(2, 0))
+      setCdMs(String(remaining.milliseconds()).padStart(2, 0).substring(0, 2))
     })
 
-    return <p className="final-countdown">{countdown}</p>
+    return <p className="final-countdown"><span className="minute">{cdMinute}</span><span className="cdMinuteColon">:</span><span className="cdSecond">{cdSecond}</span><span className="cdSecondColon">:</span><span className="cdMs">{cdMs}</span></p>
   }
 
   return (

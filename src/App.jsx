@@ -15,9 +15,19 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {counting ? <Count initial={minutes} /> : <NoCount initial={String(minutes).padStart(2, 0) + ":00:00"} />}
-        <button onClick={() => { setCounting(true) }}>Yeet!</button>
-        <button onClick={() => { setCounting(false) }}>Reset</button>
+        {counting ?
+          <Count initial={minutes} /> :
+          <NoCount
+            cdMinute={String(minutes).padStart(2, 0)}
+            cdSecond="00"
+            cdMs="00"
+          />}
+        <div className="buttons">
+          {counting
+            ? <button className="reset" onClick={() => { setCounting(false) }}>Reset</button>
+            : <button className="yeet" onClick={() => { setCounting(true) }}>Yeet!</button>
+          }
+        </div>
       </header>
     </div>
   )
