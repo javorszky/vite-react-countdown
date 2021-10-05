@@ -3,15 +3,14 @@ import moment from 'moment';
 
 function Count(props) {
   // When the elment is called, lets get a point in time props.initial minutes into the future.
-  const tenMinutesFromNow = moment().add(props.initial * 5, 's')
+  const tenMinutesFromNow = moment().add(props.initial, 'm')
 
   // Declare all the things we want to keep track of and render by.
   const [cdMinute, setCdMinute] = useState('10')
   const [cdSecond, setCdSecond] = useState('00')
   const [cdMs, setCdMs] = useState('00')
-  const [ended, setEnded] = useState(false)
+  const ended = useRef(false)
 
-  console.log('so, apparently we redeclared everything again', ended)
   // Define the custom hook here.
   // This is pretty straight taken from @see https://css-tricks.com/using-requestanimationframe-with-react-hooks/.
   const useAnimationFrame = (callback) => {
@@ -26,10 +25,7 @@ function Count(props) {
         callback(deltaTime)
       }
       previousTimeRef.current = time;
-      console.log('=== ended is', ended)
-      if (!ended) {
-        requestRef.current = requestAnimationFrame(animate);
-      }
+      requestRef.current = requestAnimationFrame(animate);
     }
 
     useEffect(() => {
@@ -48,8 +44,9 @@ function Count(props) {
     // Ideally when the new diff would reach below zero, the request animation would stop,
     // the dom would stop updating, and javascript would stop looping its things.
     if (diff < 0) {
-      setEnded(true)
-      console.log('weve set ended to true')
+      ended.current = true
+      setCdMs('00')
+      return
     }
 
     // Do some calculations to get the values as to what we actually need to update

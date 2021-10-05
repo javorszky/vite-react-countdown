@@ -5,7 +5,7 @@ import NoCount from './NoCount';
 import Count from './Count';
 
 function App() {
-  const minutes = 1;
+  const minutes = 10;
   const [counting, setCounting] = useState(false)
 
   return (
